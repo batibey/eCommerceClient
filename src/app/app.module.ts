@@ -12,6 +12,7 @@ import { BaseComponent } from './base/base.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { DeleteDirective } from './directives/admin/delete.directive';
 import { DeleteDialogComponent } from './dialogs/delete-dialog/delete-dialog.component';
+import { FileUploadComponent } from './services/common/file-upload/file-upload.component';
 
 @NgModule({
   declarations: [
