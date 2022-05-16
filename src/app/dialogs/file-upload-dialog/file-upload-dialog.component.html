@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>UYARI</h1>
+<div mat-dialog-content>
+  <p>Yüklemek İstediğinize Emin misiniz ?</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="close()">Cancel</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+</div>
