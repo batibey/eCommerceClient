@@ -21,25 +21,30 @@ export class RegisterComponent implements OnInit {
       nameSurname: ["", [
         Validators.required,
         Validators.maxLength(50),
-        Validators.minLength(3)
+        Validators.minLength(3),
+        Validators.min(2)
       ]],
       username: ["", [
         Validators.required,
         Validators.maxLength(50),
-        Validators.minLength(3)
+        Validators.minLength(3),
+        Validators.min(2)
       ]],
       email: ["", [
         Validators.required,
         Validators.maxLength(250),
-        Validators.email
+        Validators.email,
+        Validators.min(2)
       ]],
       password: ["",
         [
-          Validators.required
+          Validators.required,
+          Validators.min(2)
         ]],
       passwordConfirm: ["",
         [
-          Validators.required
+          Validators.required,
+          Validators.min(2)
         ]]
     }, {
       validators: (group: AbstractControl): ValidationErrors | null => {
