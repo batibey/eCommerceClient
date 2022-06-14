@@ -32,7 +32,7 @@ export class UserService {
     if(tokenResponse){
       localStorage.setItem("accessToken", tokenResponse.token.accessToken);
 
-      this.toastrService.message("Giriş Başarılı Oldu","Success", {
+      this.toastrService.message("Giriş Başarılı","Success", {
         messageType: ToastrMessageType.Success,
         position: ToastrPosition.TopRight
       })
