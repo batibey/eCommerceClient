@@ -120,5 +120,8 @@
       }
     }
   },
-  "defaultProject": "eTradeClient"
+  "defaultProject": "eTradeClient",
+  "cli": {
+    "analytics": "f78a4af7-cac6-44b3-b6d6-724242b095b4"
+  }
 }
