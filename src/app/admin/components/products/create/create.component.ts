@@ -32,7 +32,7 @@ export class CreateComponent extends BaseComponent implements OnInit {
 
     this.productService.create(create_product, () => {
       this.hideSpinner(SpinnerType.BallAtom);
-      this.alertify.message("Ürün eklendi", {
+      this.alertify.message("Ürün başarıyla eklendi", {
         dismissOthers: true,
         messageType: MessageType.Success,
         position: Position.TopRight
