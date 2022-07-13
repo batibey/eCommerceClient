@@ -35,7 +35,7 @@ export class CreateComponent extends BaseComponent implements OnInit {
       this.alertify.message("Ürün başarıyla eklendi", {
         dismissOthers: true,
         messageType: MessageType.Success,
-        position: Position.TopRight
+        position: Position.TopCenter
       });
       this.createdProduct.emit(create_product);
     }, errorMessage => {
@@ -43,7 +43,7 @@ export class CreateComponent extends BaseComponent implements OnInit {
         {
           dismissOthers: true,
           messageType: MessageType.Error,
-          position: Position.TopRight
+          position: Position.TopCenter
         });
     });
   }
