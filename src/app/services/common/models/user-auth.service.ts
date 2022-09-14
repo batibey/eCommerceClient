@@ -9,40 +9,47 @@ import { HttpClientService } from '../http-client.service';
   providedIn: 'root'
 })
 export class UserAuthService {
+  constructor(private httpClientService: HttpClientService, private toastrService: CustomToastrService) { }
 
-  constructor(private httpClientService : HttpClientService, private toastrService: CustomToastrService) { }
-  async login(usernameOrEmail: string, password: string, callBackFunction?: () => void): Promise<any>{
-    const observable: Observable<any | TokenResponse> =  this.httpClientService.post<any | TokenResponse>({
+  async login(userNameOrEmail: string, password: string, callBackFunction?: () => void): Promise<any> {
+    const observable: Observable<any | TokenResponse> = this.httpClientService.post<any | TokenResponse>({
       controller: "auth",
       action: "login"
-    },{ usernameOrEmail, password })
+    }, { userNameOrEmail, password })
 
-    const tokenResponse : TokenResponse = await firstValueFrom(observable) as TokenResponse;
-    if(tokenResponse){
+    const tokenResponse: TokenResponse = await firstValueFrom(observable) as TokenResponse;
+
+    if (tokenResponse) {
       localStorage.setItem("accessToken", tokenResponse.token.accessToken);
       localStorage.setItem("refreshToken", tokenResponse.token.refreshToken);
 
-      this.toastrService.message("Giriş Başarılı","Success", {
+      this.toastrService.message("Kullanıcı girişi başarıyla sağlanmıştır.", "Giriş Başarılı", {
         messageType: ToastrMessageType.Success,
         position: ToastrPosition.TopRight
       })
     }
-      
+
     callBackFunction();
   }
 
-  async refreshTokenLogin(refreshToken:string, callBackFunction?: () => void): Promise<any>{
-
+  async refreshTokenLogin(refreshToken: string, callBackFunction?: (state) => void): Promise<any> {
     const observable: Observable<any | TokenResponse> = this.httpClientService.post({
-      action: "refreshTokenLogin",
+      action: "refreshtokenlogin",
       controller: "auth"
-    },{refreshToken: refreshToken});
+    }, { refreshToken: refreshToken });
 
-    const tokenResponse: TokenResponse = await firstValueFrom(observable) as TokenResponse;
-    if(tokenResponse){
-      localStorage.setItem("accessToken", tokenResponse.token.accessToken);
-      localStorage.setItem("refreshToken", tokenResponse.token.refreshToken);
+    try {
+      const tokenResponse: TokenResponse = await firstValueFrom(observable) as TokenResponse;
+
+      if (tokenResponse) {
+        localStorage.setItem("accessToken", tokenResponse.token.accessToken);
+        localStorage.setItem("refreshToken", tokenResponse.token.refreshToken);
+      }
+
+      callBackFunction(tokenResponse ? true : false);
+    } catch {
+      callBackFunction(false);
     }
-    callBackFunction();
   }
+
 }
