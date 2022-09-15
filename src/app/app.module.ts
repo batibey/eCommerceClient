@@ -17,10 +17,12 @@ import { FileUploadModule } from './services/common/file-upload/file-upload.modu
 import { FileUploadDialogComponent } from './dialogs/file-upload-dialog/file-upload-dialog.component';
 import { JwtModule } from '@auth0/angular-jwt'
 import { HttpErrorHandlerInterceptorService } from './services/common/http-error-handler-interceptor.service';
+import { DynamicLoadComponentDirective } from './directives/common/dynamic-load-component.directive';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DynamicLoadComponentDirective
   ],
   imports: [
     BrowserModule,
