@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { ThisReceiver } from '@angular/compiler';
+import { Inject, Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder, HubConnectionState } from '@microsoft/signalr';
 
 @Injectable({
@@ -6,13 +7,15 @@ import { HubConnection, HubConnectionBuilder, HubConnectionState } from '@micros
 })
 export class SignalRService {
 
-
+  constructor(@Inject("baseSignalRUrl") private baseSignalRUrl: string) {}
 
   private _connection: HubConnection;
   get connection() :HubConnection{
     return this._connection;
   }
   start(hubUrl : string) {
+
+    hubUrl = this.baseSignalRUrl + hubUrl;
     if (!this._connection || this._connection?.state == HubConnectionState.Disconnected){
       const builder : HubConnectionBuilder = new HubConnectionBuilder();
       const hubConnection : HubConnection = builder.withUrl(hubUrl)

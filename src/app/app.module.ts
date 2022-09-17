@@ -41,6 +41,7 @@ import { DynamicLoadComponentDirective } from './directives/common/dynamic-load-
   ],
   providers: [
     { provide: "baseUrl", useValue: "https://localhost:7122/api", multi: true },
+    { provide: "baseSignalRUrl", useValue: "https://localhost:7122/", multi: true },
     { provide: HTTP_INTERCEPTORS, useClass:HttpErrorHandlerInterceptorService, multi: true}
   ],
   bootstrap: [AppComponent],
