@@ -12,41 +12,38 @@ import { SignalRService } from 'src/app/services/common/signalr.service';
 })
 export class DashboardComponent extends BaseComponent implements OnInit {
 
-  constructor(private alertify: AlertifyService, spinner : NgxSpinnerService, private signalRService : SignalRService) {
-    super(spinner);
-    signalRService.start(HubUrls.OrderHub)
-    signalRService.start(HubUrls.ProductHub)
-   }
-
-  ngOnInit(): void {
-    this.showSpinner(SpinnerType.BallAtom);
-    this.signalRService.on(ReceiveFunctions.ProductAddedMessageReceiveFunction, message => {
-      this.alertify.message(message, {
-        messageType: MessageType.Notify,
-        position: Position.TopRight
-      })
-    });
-
-    this.showSpinner(SpinnerType.BallAtom);
-    this.signalRService.on(ReceiveFunctions.OrderAddedMessageReceiveFunction, message => {
-      this.alertify.message(message, {
-        messageType: MessageType.Notify,
-        position: Position.TopRight
-      })
-    });
+  constructor(private alertify: AlertifyService, spinner: NgxSpinnerService, private signalRService: SignalRService) {
+    super(spinner)
+    //signalRService.start(HubUrls.OrderHub)
+    //signalRService.start(HubUrls.ProductHub)
 
   }
 
-  m(){
+  ngOnInit(): void {
+    this.signalRService.on(HubUrls.ProductHub, ReceiveFunctions.ProductAddedMessageReceiveFunction, message => {
+      this.alertify.message(message, {
+        messageType: MessageType.Notify,
+        position: Position.TopRight
+      })
+    });
+    this.signalRService.on(HubUrls.OrderHub, ReceiveFunctions.OrderAddedMessageReceiveFunction, message => {
+      this.alertify.message(message, {
+        messageType: MessageType.Notify,
+        position: Position.TopCenter
+      })
+    });
+  }
+
+  m() {
+
     this.alertify.message("Merhaba", {
-      messageType : MessageType.Success,
-      delay : 5,
-      dismissOthers : false,
-      position : Position.TopCenter
+      messageType: MessageType.Success,
+      delay: 5,
+      position: Position.TopRight
     })
   }
 
-  d(){
+  d() {
     this.alertify.dismiss();
   }
 
